@@ -3,6 +3,7 @@ package com.example.braidmenextdoor.View;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -17,17 +18,24 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.regex.Pattern;
 
 public class RegistrationActivity extends AppCompatActivity {
 
-    /* XML */
+    /* Déclaration XML */
     EditText userTxt, emailTxt, passwordTxt ;
     Button btn_ValidInscription;
 
+    /* Pour les TAG */
+    public static final String TAG = "YOUR-TAG-NAME";
+
     /* Instance de Firebase */
     private FirebaseAuth mAuth;
+    /* Déclaration observable pour vérifier si l'user est déjà connecté */
+    private FirebaseAuth.AuthStateListener mAuthStateListener ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +51,18 @@ public class RegistrationActivity extends AppCompatActivity {
         /* Initialise l'authentification */
         mAuth = FirebaseAuth.getInstance();
 
-        /* Redirige si l'on est connecté
-        if(mAuth.getCurrentUser() != null){
-            startActivity(new Intent(getApplicationContext(),MenuActivity.class));
-            finish();
-        } */
+        /* Vérification si déjà connecté */
+        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser mFirebaseuser = mAuth.getCurrentUser();
+                if(mFirebaseuser != null){
+                    Intent redirectionMenu = new Intent(RegistrationActivity.this,MenuActivity.class);
+                    startActivity(redirectionMenu);
+                }
+            }
+        };
+
 
         /* Bouton Valider Inscription */
         btn_ValidInscription.setOnClickListener(new View.OnClickListener() {
@@ -61,17 +76,17 @@ public class RegistrationActivity extends AppCompatActivity {
 
                 /* Vérification USER */
                 if(TextUtils.isEmpty(user)){
-                    userTxt.setError("Champ utilisateur vide");
+                    userTxt.setError("Le champ utilisateur est vide");
                     return ;
                 }
-                if(user.length()<=3 || user.length()>15){
-                    userTxt.setError("Le champ utilisateur doit avoir entre 3 et 12 caractères");
+                if(user.length()<3 || user.length()>15){
+                    userTxt.setError("Le champ utilisateur nécessite entre 3 et 12 caractères");
                     return ;
                 }
 
                 /* Vérification EMAIL */
                 if(TextUtils.isEmpty(email)){
-                    emailTxt.setError("Champ email vide");
+                    emailTxt.setError("Le champ email est vide");
                     return ;
                 }
                 if (!validEmail(email)) {
@@ -81,14 +96,13 @@ public class RegistrationActivity extends AppCompatActivity {
 
                 /* Vérification PASSWORD */
                 if(TextUtils.isEmpty(password)){
-                    passwordTxt.setError("Champ password vide");
+                    passwordTxt.setError("Le champ mot de passe est vide");
                     return ;
                 }
                 if(password.length()<6){
                     passwordTxt.setError("Ce champ nécessite 6 caratères au minimum");
                     return ;
                 }
-
 
                 /* Envoi en base des données pour vérification */
                 mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -99,8 +113,23 @@ public class RegistrationActivity extends AppCompatActivity {
                                     Toast.makeText(RegistrationActivity.this, "Authentication réussi. Bonjour " + user ,Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(getApplicationContext(), MenuActivity.class));
                                 } else {
-                                    // If sign in fails, display a message to the user.
-                                    Toast.makeText(RegistrationActivity.this, "Authentication échouée.",Toast.LENGTH_SHORT).show();
+                                    try
+                                    {
+                                        throw task.getException();
+                                    }
+                                    // if user enters wrong email.
+                                    catch (FirebaseAuthUserCollisionException invalidEmail)
+                                    {
+                                        Toast.makeText(RegistrationActivity.this, "L'email est déjà utilisé",Toast.LENGTH_SHORT).show();
+                                        Log.d(TAG, "onComplete: invalid_email");
+                                    }
+                                    catch (Exception e)
+                                    {
+                                        // If sign in fails, display a message to the user.
+                                        Toast.makeText(RegistrationActivity.this, "Authentication échouée.",Toast.LENGTH_SHORT).show();
+                                        Log.d(TAG, "onComplete: " + e.getMessage());
+                                    }
+
                                 }
                             }
                 });
@@ -115,4 +144,13 @@ public class RegistrationActivity extends AppCompatActivity {
         });
 
     }
+
+    /* Après la méthode onCreate, on ajoute un observable */
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthStateListener);
+    }
+
+
 }

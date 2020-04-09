@@ -197,21 +197,18 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"></LinearLayout>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
                 <Button
                     android:id="@+id/BoutonInscrire_ActivityMain"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
+                    android:minWidth="150dp"
+                    android:maxWidth="150dp"
                     android:radius="10dp"
                     android:text="S'inscrire"
                     android:background="@drawable/button_radius_inscription"
                     android:textColor="#FFFFFF"/>
-            </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -232,20 +229,17 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"></LinearLayout>
 
-            <LinearLayout
+            <Button
+                android:id="@+id/BoutonFacebook_ActivityMain"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_height="wrap_content"
+                android:minWidth="150dp"
+                android:maxWidth="150dp"
+                android:layout_weight="2"
+                android:text="Continuer avec Facebook"
+                android:background="@drawable/button_radius_facebook"
+                android:textColor="#FFFFFF"/>
 
-                <Button
-                    android:id="@+id/BoutonFacebook_ActivityMain"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Continuer avec Facebook"
-                    android:background="@drawable/button_radius_facebook"
-                    android:textColor="#FFFFFF"/>
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -266,21 +260,17 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"></LinearLayout>
 
-            <LinearLayout
+            <Button
+                android:id="@+id/BoutonGoogle_ActivityMain"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_height="wrap_content"
+                android:minWidth="150dp"
+                android:maxWidth="150dp"
+                android:layout_weight="2"
+                android:text="Continuer avec Google"
+                android:background="@drawable/button_radius_google"
+                android:textColor="#FFFFFF"/>
 
-
-                <Button
-                    android:id="@+id/BoutonGoogle_ActivityMain"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Continuer avec Google"
-                    android:background="@drawable/button_radius_google"
-                    android:textColor="#FFFFFF"/>
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -302,21 +292,16 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"></LinearLayout>
 
-            <LinearLayout
+            <Button
+                android:id="@+id/BoutonDejaInscrit_ActivityMain"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
-
-                <Button
-                    android:id="@+id/BoutonDejaInscrit_ActivityMain"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Déjà Inscrit(e) ?"
-                    android:background="@drawable/button_radius_dejainscrit"
-                    android:textColor="#FFFFFF"/>
-            </LinearLayout>
+                android:layout_height="wrap_content"
+                android:minWidth="150dp"
+                android:maxWidth="150dp"
+                android:layout_weight="2"
+                android:text="Déjà Inscrit(e) ?"
+                android:background="@drawable/button_radius_dejainscrit"
+                android:textColor="#FFFFFF"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"

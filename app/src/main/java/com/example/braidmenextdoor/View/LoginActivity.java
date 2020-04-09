@@ -3,6 +3,7 @@ package com.example.braidmenextdoor.View;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -18,22 +19,29 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.regex.Pattern;
 
 public class LoginActivity extends AppCompatActivity {
 
+    /* Déclaration XML */
     EditText adresseEmail_txt, password_txt ;
     Button valid ;
     TextView redirectionInscription;
-    FirebaseAuth mAuth;
 
+    public static final String TAG = "YOUR-TAG-NAME";
+
+    /* Instance de Firebase */
+    private FirebaseAuth mAuth;
+    /* Déclaration observable pour vérifier si l'user est déjà connecté */
+    private FirebaseAuth.AuthStateListener mAuthStateListener ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_to_log_in);
-
 
         /* Récupération des id via le xml */
         adresseEmail_txt = findViewById(R.id.AdresseEmail_ToLoginActivity);
@@ -44,6 +52,18 @@ public class LoginActivity extends AppCompatActivity {
         /* Initialise l'authentification */
         mAuth = FirebaseAuth.getInstance();
 
+        /* Vérification si déjà connecté */
+        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser mFirebaseuser = mAuth.getCurrentUser();
+                if(mFirebaseuser != null){
+                    Intent redirectionMenu = new Intent(LoginActivity.this,MenuActivity.class);
+                    startActivity(redirectionMenu);
+                }
+            }
+        };
+
 
         /* Bouton Valider la connexion */
         valid.setOnClickListener(new View.OnClickListener() {
@@ -52,11 +72,11 @@ public class LoginActivity extends AppCompatActivity {
 
                 /* On met nos valeurs dans des données*/
                 String email = adresseEmail_txt.getText().toString().trim();
-                String password = password_txt.getText().toString().trim();
+                final String password = password_txt.getText().toString().trim();
 
                 /* Vérification EMAIL */
                 if(TextUtils.isEmpty(email)){
-                    adresseEmail_txt.setError("Champ email vide");
+                    adresseEmail_txt.setError("Le champ email est vide");
                     return ;
                 }
                 if (!validEmail(email)) {
@@ -66,7 +86,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 /* Vérification PASSWORD */
                 if(TextUtils.isEmpty(password)){
-                    password_txt.setError("Champ password vide");
+                    password_txt.setError("Le champ mot de passe est vide");
                     return ;
                 }
                 if(password.length()<6){
@@ -85,7 +105,21 @@ public class LoginActivity extends AppCompatActivity {
                             Intent ValidConnectionActivityIntent = new Intent(LoginActivity.this, MenuActivity.class);
                             startActivity(ValidConnectionActivityIntent);
                         }else {
-                            Toast.makeText(LoginActivity.this, "Connection échoué.",Toast.LENGTH_SHORT).show();
+                            try
+                            {
+                                throw task.getException();
+                            }
+                            // if user enters wrong password.
+                            catch (FirebaseAuthInvalidCredentialsException wrongPassword)
+                            {
+                                Toast.makeText(LoginActivity.this, "Le mot de passe n'est pas correct" ,Toast.LENGTH_SHORT).show();
+                                Log.d(TAG, "onComplete: wrong_password");
+                            }
+                            catch (Exception e)
+                            {
+                                Toast.makeText(LoginActivity.this, "Connexion échoué - Vérifier vos identifiants" ,Toast.LENGTH_SHORT).show();
+                                Log.d(TAG, "onComplete: " + e.getMessage());
+                            }
                         }
                     }
                 });
@@ -106,9 +140,12 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+    }
 
-
-
-
+    /* Après la méthode onCreate, on ajoute un observable */
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthStateListener);
     }
 }
