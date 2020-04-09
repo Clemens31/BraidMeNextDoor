@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "413988424180",
+    "firebase_url": "https://db-braidmenextdoor.firebaseio.com",
+    "project_id": "db-braidmenextdoor",
+    "storage_bucket": "db-braidmenextdoor.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:413988424180:android:c773dda472da39e96891a1",
+        "android_client_info": {
+          "package_name": "com.example.braidmenextdoor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "413988424180-91c9tskj6k4i7nr8r3h72cuqmtkvmhib.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC91mnhqX-SwClEL871lYoHW6mWjpahHSw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "413988424180-91c9tskj6k4i7nr8r3h72cuqmtkvmhib.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
