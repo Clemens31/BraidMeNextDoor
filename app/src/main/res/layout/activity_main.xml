@@ -10,131 +10,130 @@
     <!-- header -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="0dp"
+        android:layout_weight="2"
         android:background="#834F8E"
         android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="horizontal"></LinearLayout>
+            android:layout_weight="3"
+            android:orientation="horizontal">
+        </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="match_parent"
-            android:layout_weight="5"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
 
             <ImageView
                 android:id="@+id/menuFR"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_height="30dp"
                 app:srcCompat="@drawable/menufr" />
         </LinearLayout>
 
     </LinearLayout>
 
     <!-- Title -->
-    <LinearLayout
+    <ImageView
+        android:id="@+id/title"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
-
-
-        <ImageView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/braid" />
-    </LinearLayout>
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:srcCompat="@drawable/braid" />
 
     <!-- Menu -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:background="#834F8E">
 
+        <!-- Femmes -->
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:layout_weight="1">
 
             <TextView
                 android:id="@+id/Femmes"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="Femmes"
                 android:textColor="#FFFFFF"
                 android:textSize="13dp" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
 
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <!-- Hommes -->
             <TextView
                 android:id="@+id/Hommes"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:text="Hommes"
                 android:textColor="#FFFFFF"
                 android:textSize="13dp" />
         </LinearLayout>
 
+        <!-- Enfants -->
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:layout_weight="1">
 
             <TextView
                 android:id="@+id/Enfants"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="Enfants"
                 android:textColor="#FFFFFF"
                 android:textSize="13dp" />
         </LinearLayout>
 
+        <!-- A proximité -->
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:layout_weight="1">
 
             <TextView
                 android:id="@+id/AProximite"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="A Proximité"
                 android:textColor="#FFFFFF"
                 android:textSize="13dp" />
         </LinearLayout>
 
+        <!-- A propos -->
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:layout_weight="1">
 
             <TextView
                 android:id="@+id/APropos"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="A Propos"
                 android:textColor="#FFFFFF"
@@ -145,24 +144,22 @@
     <!-- Contain -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="40dp">
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:orientation="vertical">
 
         <!-- Texte S'inscrire -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="2"
             >
 
             <TextView
                 android:id="@+id/TextInscrire"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
+                android:gravity="center|bottom"
                 android:text="S'inscrire"
                 android:textStyle="bold"
                 android:textColor="#000000"
@@ -189,8 +186,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="horizontal"
-            android:layout_marginTop="5dp">
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -209,7 +205,6 @@
                     android:background="@drawable/button_radius_inscription"
                     android:textColor="#FFFFFF"/>
 
-
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -221,8 +216,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="horizontal"
-            android:layout_marginTop="5dp">
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -290,12 +284,12 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1"></LinearLayout>
+                android:layout_weight="1"/>
 
             <Button
                 android:id="@+id/BoutonDejaInscrit_ActivityMain"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:minWidth="150dp"
                 android:maxWidth="150dp"
                 android:layout_weight="2"
@@ -313,8 +307,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginTop="5dp">
+            android:layout_weight="3">
 
             <TextView
                 android:id="@+id/TextProbleme_ActivityMain"
